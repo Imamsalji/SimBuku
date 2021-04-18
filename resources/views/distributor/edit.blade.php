@@ -7,10 +7,9 @@
 <div class="section-body">
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
-           
            <div class="card">
             <div class="card-body">
-              <form action="{{ route('buku.store') }}" method="POST">
+              <form action="{{ route('buku.ubah',$book->id_buku) }}" method="POST">
                 @csrf
                <div class="row">
 
@@ -21,7 +20,7 @@
                           {{ $message }}
                        @enderror
                      </label>
-                     <input id="email" type="text" name="id_buku" value="{{$kode}}" class="form-control" disabled>
+                     <input id="id_buku" type="text" name="id_buku" value="{{$kode}}" class="form-control" disabled>
                    </div>
                  </div>
 
@@ -32,7 +31,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="email" type="text" name="judul" value="{{ old('judul') }}" class="form-control" >
+                      <input id="judul" type="text" name="judul" value="{{$book->judul}}" class="form-control" >
                     </div>
                   </div>
 
@@ -43,7 +42,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="noisbn" type="text" name="noisbn" value="{{ old('noisbn') }}" class="form-control" >
+                      <input id="noisbn" type="text" name="noisbn" value="{{$book->noisbn}}" class="form-control" >
                     </div>
                   </div>
 
@@ -54,7 +53,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="penulis" type="text" name="penulis" value="{{ old('penulis') }}" class="form-control" >
+                      <input id="penulis" type="text" name="penulis" value="{{$book->penulis}}" class="form-control" >
                     </div>
                   </div>
 
@@ -65,7 +64,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="penerbit" type="text" name="penerbit" value="{{ old('penerbit') }}" class="form-control" >
+                      <input id="penerbit" type="text" name="penerbit" value="{{$book->penerbit}}" class="form-control" >
                     </div>
                   </div>
 
@@ -76,7 +75,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="tahun" type="year" name="tahun" value="{{ old('tahun') }}" class="form-control" >
+                      <input id="tahun" type="year" name="tahun" value="{{$book->tahun}}" class="form-control" >
                     </div>
                   </div>
 
@@ -87,7 +86,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="harga_pokok" type="text" name="harga_pokok" value="{{ old('harga_pokok') }}" class="form-control" >
+                      <input id="harga_pokok" type="text" name="harga_pokok" value="{{$book->harga_pokok}}" class="form-control" >
                     </div>
                   </div>
 
@@ -98,7 +97,7 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="harga_jual" type="text" name="harga_jual" value="{{ old('harga_jual') }}" class="form-control" >
+                      <input id="harga_jual" type="text" name="harga_jual" value="{{$book->harga_jual}}" class="form-control" >
                     </div>
                   </div>
 
@@ -109,15 +108,15 @@
                            {{ $message }}
                         @enderror
                       </label>
-                      <input id="diskon" type="number" name="diskon" value="{{ old('diskon') }}" class="form-control" >
+                      <input id="diskon" type="number" name="diskon" value="{{$book->diskon}}" class="form-control" >
                     </div>
                   </div>
                </div>
-               <hr>
 
                <div class="card-footer text-right">
-                   <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                   <button class="btn btn-primary" type="reset">Reset</button>
+                   <button class="btn btn-primary mr-1" type="submit">Update</button>
+                   <button class="btn btn-secondary" type="reset">Reset</button>
+                   <a href="{{ route('user') }}" class="btn btn-icon icon-left btn-primary">Cancel</a>
                </div>
               </form>
          </div>
@@ -158,27 +157,15 @@
                <tbody>
                 @foreach ($books as $item)
                 <tr> 
-                  @if ($rowCount > 0)
-                    @if ($item->id_buku < 9)
-                      <td>BK0000{{ $item->id_buku }}</td>
-                    @elseif ($item->id_buku < 99)
-                      <td>BK000{{ $item->id_buku  }}</td>
-                    @elseif ($item->id_buku < 999)
-                      <td>BK00{{ $item->id_buku }}</td>
-                    @elseif ($item->id_buku < 9999)
-                      <td>BK0{{ $item->id_buku }}</td>
-                    @else
-                      <td>BK{{ $item->id_buku  }}</td>
-                    @endif
-                  @endif
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->judul }}</td>
                     <td>{{ $item->noisbn }}</td>
                     <td>{{ $item->penulis }}</td>
                     <td>{{ $item->penerbit }}</td>
                     <td>{{ $item->tahun }}</td>
                     <td>
-                        <a href="{{route('buku.edit', $item->id_buku)}}" class="btn btn-outline-warning">Edit</a>
-                        <a href="{{url('buku.delete', $item->id_buku)}}" onclick="return confirm('Yakin hapus data?')" class="btn btn-outline-danger">Delete</a>
+                        <a href="{{url('buku.edit', $item->id)}}" class="btn btn-outline-warning">Edit</a>
+                        <a href="{{url('buku.delete', $item->id)}}" onclick="return confirm('Yakin hapus data?')" class="btn btn-outline-danger">Delete</a>
                     </td>
                 </tr>
                 @endforeach

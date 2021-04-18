@@ -31,9 +31,15 @@
               </a>
             </li>
             <li class="nav-item dropdown {{ Request::is('admin/Pasok', 'admin/input/pasok') ? 'sidebar-item active' : '' }}">
-              <a href="{{ route('buku.index') }}" class="nav-link">
+              <a href="{{ route('pasok.create') }}" class="nav-link">
                 <i class="fas fa-plus"></i> 
                 <span>Input Pasok</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown {{ Request::is('admin/Pasok', 'admin/input/pasok') ? 'sidebar-item active' : '' }}">
+              <a href="{{ route('penjualan.index') }}" class="nav-link">
+                <i class="fas fa-carts"></i> 
+                <span>penjualan</span>
               </a>
             </li>
             @endif

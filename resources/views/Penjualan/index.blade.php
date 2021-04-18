@@ -12,13 +12,8 @@
               <form action="{{ route('buku.store') }}" method="POST">
                 @csrf
                     <div class="form-group">
-                        <label for="tahun_dibayar">Nama Distributor</label>
-                        <select name="id_distributor" id="id_distributor" class="form-control">
-                            <option value="">pilih Distributor</option>
-                            @foreach ($distributors as $item)
-                                <option value="{{$item->id_distributor}}">{{$item->nama_distributor}}</option>
-                            @endforeach
-                        </select>
+                        <label for="tahun_dibayar">Kode Penjualan</label>
+                        <input type="text" class="form-control" value="{{$kode}}" disabled>
                     @error('id_distributor')
                         <span class=" text-danger">
                             <strong>{{ $message }}</strong>
@@ -74,55 +69,61 @@
       </form>
          </div>
      </div>
-           <div class="card">
-               <div class="card-body">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible show fade">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>x</span>
-                        </button>
-                        {{ session('message') }}
-                    </div>
+     @if ($temp->id != NULL)
+        <div class="card">
+            <div class="card-body">
+            @if (session('message'))
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>x</span>
+                    </button>
+                    {{ session('message') }}
                 </div>
-                @elseif (session('delete'))
-                <div class="alert alert-danger alert-dismissible show fade">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>x</span>
-                        </button>
-                        {{ session('delete') }}
-                    </div>
+            </div>
+            @elseif (session('delete'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>x</span>
+                    </button>
+                    {{ session('delete') }}
                 </div>
-                @endif
-           <table id="table" class="table table-striped table-bordered table-md">
-               <thead>
-                <tr>
-                    <th>No</th>
-                    <th>judul Buku</th>
-                    <th>Nama Distributor</th>
-                    <th>Jumlah</th>
-                    <th>Tanggal</th>
-                    <th>Action</th>
-                </tr>
-               </thead>
-               <tbody>
-                @foreach ($pasok as $item)
-                <tr> 
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->buku->judul }}</td>
-                    <td>{{ $item->distributor->nama_distributor }}</td>
-                    <td>{{ $item->jumlah }}</td>
-                    <td>{{ $item->tanggal }}</td>
-                    <td>
-                        <a href="{{route('pasok.delete', $item->id_pasok)}}" onclick="return confirm('Yakin hapus data?')" class="btn btn-outline-danger">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-               </tbody>
-           </table>
-               </div>
-           </div>
+            </div>
+            @endif
+        <table id="table" class="table table-striped table-bordered table-md">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>judul Buku</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>diskon</th>
+                <th>total</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($temp as $item)
+            <tr> 
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $item->buku->judul }}</td>
+                <td>{{ $item->buku->harga_jual }}</td>
+                <td>{{ $item->jumlah_beli }}</td>
+                <td>{{ $item->buku->diskon }}</td>
+                <td>{{ $item->buku->harga_jual *  $item->jumlah_beli}}</td>
+                <td>
+                    <a href="{{route('pasok.delete', $item->id)}}" onclick="return confirm('Yakin hapus data?')" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
+            </div>
+        </div>
+     @endif
+           
+
         </div>
     </div>
 </div>

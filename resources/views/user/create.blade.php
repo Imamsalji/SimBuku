@@ -35,7 +35,6 @@
                           <option value disable>Pilih Level</option>
                           <option value="admin">Admin</option>
                           <option value="kasir">Kasir</option>
-                          <option value="distributor">distributor</option>
                           <option value="manager">manager</option>
                         </select>
                       </div>

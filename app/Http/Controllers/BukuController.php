@@ -18,25 +18,27 @@ class BukuController extends Controller
         $rowCount = $getRow->count();
         
         $lastId = $getRow->first();
-        $kode = "BK00001";
+        $kode = 0;
         
         if ($rowCount > 0) {
-            if ($lastId->id < 9) {
-                    $kode = "BK0000".''.($lastId->id + 1);
-            } else if ($lastId->id < 99) {
-                    $kode = "BK000".''.($lastId->id + 1);
-            } else if ($lastId->id < 999) {
-                    $kode = "BK00".''.($lastId->id + 1);
-            } else if ($lastId->id < 9999) {
-                    $kode = "BK0".''.($lastId->id + 1);
+            if ($lastId->id_buku < 9) {
+                    $kode = "BK0000".''.($lastId->id_buku + 1);
+            } else if ($lastId->id_buku < 99) {
+                    $kode = "BK000".''.($lastId->id_buku + 1);
+            } else if ($lastId->id_buku < 999) {
+                    $kode = "BK00".''.($lastId->id_buku + 1);
+            } else if ($lastId->id_buku < 9999) {
+                    $kode = "BK0".''.($lastId->id_buku + 1);
             } else {
-                    $kode = "BK".''.($lastId->id + 1);
+                    $kode = "BK".''.($lastId->id_buku + 1);
             }
         }
         $books = Buku::all();
         return view('Buku.index',[
             'books'=>$books,
-            'kode'=>$kode
+            'kode'=>$kode,
+            'rowCount'=>$rowCount,
+            'lastId'=>$lastId
         ]);
     }
 
